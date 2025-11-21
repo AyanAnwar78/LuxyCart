@@ -18,7 +18,7 @@ let app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: ["https://luxycartfrontend.onrender.com","http://localhost:5174"],
+    origin: ["https://luxycartfrontend.onrender.com","https://luxycartadmin.onrender.com"],
     credentials: true
 }))
 
