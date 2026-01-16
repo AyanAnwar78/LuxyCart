@@ -42,17 +42,17 @@ function Nav() {
 
 
   return (
-    <div className='w-[100vw] h-[70px] bg-[#fbf6f8] z-10 fixed top-0 flex items-center justify-between px-[30px] shadow-md shadow-gray-300 '>
+    <div className='w-[100vw] h-[70px] bg-[#ecfafa] z-10 fixed top-0 flex items-center justify-between px-[30px] shadow-md shadow-black '>
       <div className='w-[20%] flex items-center justify-start gap-[10px] lg:w-[30%] ' onClick={() => navigate("/")}>
         <img src={logo} alt="" className='w-[30px] ' />
         <h1 className=' text-xl '>LuxyCart</h1>
       </div>
       <div className='w-[50%] lg:w-[40%] hidden md:flex'>
         <ul className='flex items-center justify-center gap-[19px] text-[white] '>
-          <li className='text-[15px] hover:bg-black hover:text-white cursor-pointer py-[10px] px-[20px] rounded-2xl text-gray-800' onClick={() => navigate("/")}>HOME</li>
-          <li className='text-[15px] hover:bg-black hover:text-white cursor-pointer py-[10px] px-[20px] rounded-2xl text-gray-800' onClick={() => navigate("/collection")}>COLLECTIONS</li>
-          <li className='text-[15px] hover:bg-black hover:text-white cursor-pointer py-[10px] px-[20px] rounded-2xl text-gray-800' onClick={() => navigate("/about")}>ABOUT</li>
-          <li className='text-[15px] hover:bg-black hover:text-white cursor-pointer py-[10px] px-[20px] rounded-2xl text-gray-800' onClick={() => navigate("/contact")}>CONTACT</li>
+          <li className='text-[15px] hover:bg-black cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl ' onClick={() => navigate("/")}>HOME</li>
+          <li className='text-[15px] hover:bg-black cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl ' onClick={() => navigate("/collection")}>COLLECTIONS</li>
+          <li className='text-[15px] hover:bg-black cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl ' onClick={() => navigate("/about")}>ABOUT</li>
+          <li className='text-[15px] hover:bg-black cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl ' onClick={() => navigate("/contact")}>CONTACT</li>
 
         </ul>
       </div>
