@@ -115,7 +115,7 @@ export const adminLogin = async (req,res)=>{
         let {email,password} = req.body
         if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
         let token = await genToken1(email)
-        res.cookie("token", token, {
+        res.cookie("adminToken", token, {
             httpOnly:true,
             secure:true,
             sameSite: "none",

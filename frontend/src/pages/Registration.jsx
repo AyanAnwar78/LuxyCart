@@ -47,7 +47,7 @@ function Registration() {
             let name = user.displayName;
             let email = user.email
 
-            const result = await axios.post(serverUrl+ "/api/auth/googlelogin", {name,
+            const result = await axios.post(serverUrl+ "/api/auth/googleLogin", {name,
             email}, {withCredentials:true})
             console.log(result.data)
             toast.success("Signin Successfully")
@@ -80,10 +80,10 @@ function Registration() {
 
             <form action="" onSubmit={handleSignup} className='flex flex-col items-center justify-start gap-[20px] w-[90%] h-[90%] '>
 
-                <div className='w-[90%] h-[50px] bg-[#42656cae] flex items-center justify-center rounded-lg cursor-pointer py-[20px]'
+                <button type="button" className='w-[90%] h-[50px] bg-[#42656cae] flex items-center justify-center rounded-lg cursor-pointer py-[20px]'
                  onClick={googleSignup} >
                     <img src={google} alt="" className='w-[30px] h-[30px] m-3 rounded-[50%]' />   Registration with Google
-                </div>
+                </button>
 
                 <div className='w-[100%] h-[20px] flex items-center justify-center gap-[10px] '>
                     <div className='w-[40%] h-[1px] bg-[#96969635] '></div>   Or   <div  className='w-[40%] h-[1px] bg-[#96969635] '></div>
