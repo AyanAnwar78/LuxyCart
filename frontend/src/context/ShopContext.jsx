@@ -3,6 +3,7 @@ import { authDataContext } from './AuthContext'
 import axios from 'axios'
 import {userDataContext} from "./UserContext"
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const shopDataContext = createContext()
 
@@ -18,6 +19,7 @@ function ShopContext({ children }) {
     let {userData} = useContext(userDataContext)
 
     let [cartItem, setCartItem] = useState({})
+    let navigate = useNavigate()
 
     let currency = '₹'
 
@@ -35,8 +37,14 @@ function ShopContext({ children }) {
 
 
     const addtoCart = async (itemId, size) => {
+        if (!userData) {
+            toast.error("Please login to add items to cart");
+            navigate("/login");
+            return;
+        }
+
         if (!size) {
-            console.log("Select Product Size");
+            toast.error("Please select a size");
             return;
         }
 
@@ -121,8 +129,10 @@ function ShopContext({ children }) {
 
 
     useEffect(() => {
-        getUserCart()
-    }, [])
+        if (userData) {
+            getUserCart()
+        }
+    }, [userData])
 
 
     const getCartAmount = ()=>{

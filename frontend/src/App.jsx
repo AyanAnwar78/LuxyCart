@@ -23,53 +23,31 @@ function App() {
   let location = useLocation()
   return (
     <>
-      {userData && <Nav />}
+      <Nav />
         <Routes>
+            {/* Auth routes - redirect to home if already logged in */}
             <Route path='/login' 
-              element={userData ? (<Navigate to = {location.state?.from || "/" }/> )
-              : (<Login />)
-            }/>
-
+              element={userData ? (<Navigate to={location.state?.from || "/"}/>) : (<Login />)}
+            />
             <Route path='/signup'
-              element={userData ? (<Navigate to = {location.state?.from || "/" }/> )
-              : (<Registration />)
-            }/>
+              element={userData ? (<Navigate to={location.state?.from || "/"}/>) : (<Registration />)}
+            />
 
-            <Route path='/' 
-              element={userData ? <Home /> : <Navigate to = "/login" state=
-                {{from: location.pathname}} /> }/>
+            {/* Public routes - accessible without login */}
+            <Route path='/' element={<Home />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/collection' element={<Collections />} />
+            <Route path='/contact' element={<Contact />} />
+            <Route path='/product' element={<Product />} />
+            <Route path='/productdetail/:productId' element={<ProductDetail />} />
 
-            <Route path='/about' 
-              element={userData ? <About /> : <Navigate to = "/login" state=
-                {{from: location.pathname}} /> }/>
-
-            <Route path='/collection'
-              element={userData ? <Collections /> : <Navigate to = "/login" state=
-                {{from: location.pathname}} /> }/>
-
-            <Route path='/contact' 
-              element={userData ? <Contact /> : <Navigate to = "/login" state=
-                {{from: location.pathname}} /> }/>
-
-            <Route path='/product' 
-              element={userData ? <Product /> : <Navigate to = "/login" state=
-                {{from: location.pathname}} /> }/>
-
-            <Route path='/productdetail/:productId' 
-              element={userData ? <ProductDetail /> : <Navigate to = "/login" state=
-                {{from: location.pathname}} /> }/>
-
+            {/* Protected routes - require login */}
             <Route path='/cart' 
-              element={userData ? <Cart /> : <Navigate to = "/login" state=
-                {{from: location.pathname}} /> }/>
-
+              element={userData ? <Cart /> : <Navigate to="/login" state={{from: location.pathname}} />} />
             <Route path='/placeorder' 
-              element={userData ? <PlaceOrder /> : <Navigate to = "/login" state=
-                {{from: location.pathname}} /> }/>
-
+              element={userData ? <PlaceOrder /> : <Navigate to="/login" state={{from: location.pathname}} />} />
             <Route path='/order' 
-              element={userData ? <Order /> : <Navigate to = "/login" state=
-                {{from: location.pathname}} /> }/>
+              element={userData ? <Order /> : <Navigate to="/login" state={{from: location.pathname}} />} />
 
             <Route path="*" element={<NotFound />} />
         </Routes>
