@@ -6,7 +6,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { IoEye } from "react-icons/io5";
 import { authDataContext } from '../context/AuthContext.jsx';
 import axios from 'axios'
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import {auth, provider} from '../../utils/Firebase'
 import { userDataContext } from '../context/UserContext';
 import { toast } from 'react-toastify';
@@ -18,8 +18,29 @@ function Login() {
     let {serverUrl} = useContext(authDataContext)
     let {getCurrentUser} = useContext(userDataContext)
 
-
     let navigate = useNavigate()
+
+    // Handle the result after Google redirect
+    React.useEffect(() => {
+        getRedirectResult(auth).then(async (response) => {
+            if (!response) return;
+            let user = response.user;
+            let name = user.displayName;
+            let email = user.email;
+            try {
+                const result = await axios.post(serverUrl + "/api/auth/googleLogin", { name, email }, { withCredentials: true });
+                console.log(result.data);
+                toast.success("Login Successfully");
+                await getCurrentUser();
+                navigate("/");
+            } catch (error) {
+                console.log(error);
+                toast.error("Google Login Failed");
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+    }, []);
 
     const handleLogin = async (e)=>{
         e.preventDefault()
@@ -39,22 +60,10 @@ function Login() {
 
     const googlelogin = async()=>{
         try{
-            const response = await signInWithPopup(auth, provider)
-            let user =response.user
-            let name = user.displayName;
-            let email = user.email
-
-            const result = await axios.post(serverUrl+ "/api/auth/googleLogin", {name,
-            email}, {withCredentials:true})
-            console.log(result.data)
-            toast.success("Login Successfully")
-            await getCurrentUser()
-            navigate("/")
-
+            await signInWithRedirect(auth, provider)
         }catch (error){
             console.log(error)
             toast.error("Login Failed")
-
         }
     }
 

@@ -22,6 +22,12 @@ app.use(cors({
     credentials: true
 }))
 
+// Allow Firebase auth redirect to work across origins
+app.use((req, res, next) => {
+    res.setHeader("Cross-Origin-Opener-Policy", "unsafe-none");
+    next();
+})
+
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
