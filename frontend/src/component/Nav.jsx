@@ -19,7 +19,7 @@ import { toast } from 'react-toastify';
 function Nav() {
 
   /* user data access krrhe hai profile meh show krne k liye */
-  let { getCurrentUser, userData } = useContext(userDataContext)
+  let { getCurrentUser, userData, setUserData } = useContext(userDataContext)
   let { serverUrl } = useContext(authDataContext)
   /* search k liye useState */
   let { showSearch, setShowSearch, search, setSearch, getCartCount } = useContext(shopDataContext)
@@ -32,8 +32,9 @@ function Nav() {
     try {
       const result = await axios.get(serverUrl + "/api/auth/logout", { withCredentials: true })
       console.log(result.data)
+      setUserData(null)
       toast.success("Logout Successfully")
-      getCurrentUser()
+      navigate("/")
     } catch (error) {
       console.log(error)
       toast.error("Logout Failed!")
